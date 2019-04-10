@@ -1,4 +1,5 @@
 <?php
+    //adatbázishoz 
     include("config.php");
 
     //ha a felhasználó bejelentkezne
@@ -22,7 +23,7 @@
             {
                 session_start();
 
-                $tmpdata['token'] = random_int(10000,99999);
+                $tmpdata['token'] = sha1(strval(time()).$_POST['username'].strval(rand(0000000,9999999)));
                 $tmpdata['group'] = "admin";
 
                 $tmpjson['type'] = 'login';

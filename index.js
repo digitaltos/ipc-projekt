@@ -10,3 +10,11 @@ $(document).ready(function(){
     };
 
 });
+
+
+/*
+*
+* ideiglenes dolgok
+*/
+
+console.log(token);

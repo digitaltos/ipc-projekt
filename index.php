@@ -2,6 +2,23 @@
     // adatbázishoz 
     include("config.php");
 
+    /****************************************
+     * 
+     *  Dolgok amik az admin.php-ben lesznek 
+     *  majd egyszer
+     * 
+     ***************************************/
+
+     if ($_SESSION['token'] == NULL)
+     {
+         echo ("Neked nem szabadna itt lenned");
+     }else{
+        echo '<script type ="text/javascript">
+        var token = "' . $_SESSION["token"] . '" 
+        </script>'
+        ;
+     }
+
     // ha a felhasználó bejelentkezne
     if($_SERVER["REQUEST_METHOD"] == "POST") 
     {

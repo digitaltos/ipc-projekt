@@ -2,23 +2,6 @@
     // adatbázishoz 
     include("config.php");
 
-    /****************************************
-     * 
-     *  Dolgok amik az admin.php-ben lesznek 
-     *  majd egyszer
-     * 
-     ***************************************/
-    session_start();
-     if ($_SESSION['token'] == NULL)
-     {
-         echo ("Neked nem szabadna itt lenned");
-     }else{
-        echo '<script type ="text/javascript">
-        var token = "' . $_SESSION["token"] . '" 
-        </script>'
-        ;
-     }
-
     // ha a felhasználó bejelentkezne
     if($_SERVER["REQUEST_METHOD"] == "POST") 
     {
@@ -71,15 +54,12 @@
                     fclose($socket);
 
                     // redirect
-                    //header("location: admin.php");
+                    header("location: admin.php");
                 }
-
             }else{
                 echo "Nincs ilyen felhasználó";
             }
         }
-
-
     }
 ?>
 
@@ -88,8 +68,6 @@
     <META charset="UTF-8" />
     <head>
         <title>Projekt oldal 1/2</title>
-        <script src="./jquery-3.3.1.min.js"></script>
-        <script src="./index.js"></script>
     </head>
 
     <body style="background-color:black; color: white">

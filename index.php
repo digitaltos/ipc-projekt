@@ -23,7 +23,7 @@
                 session_start();
 
                 $tmpdata['token'] = random_int(10000,99999);
-                $tmpdata['user'] = $username;
+                $tmpdata['group'] = "admin";
 
                 $tmpjson['type'] = 'login';
                 $tmpjson['data'] = $tmpdata;

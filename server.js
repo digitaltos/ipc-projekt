@@ -2,6 +2,8 @@
  * Inicializálás
 ************************************************/
 // létrehoz egy WSServer változót a ws modulból (ez lesz a WebSocket szerver)
+global.tokens = {};
+global.groups = {};
 
 const WebSocket = require('ws');
 //var WSServer = require('ws').Server;
@@ -38,9 +40,12 @@ ipc.serve(
     ipc.server.on(
       'login',
       function(data){
-        ipc.log('Kossuth Lajos azt üzente: ', data);
+        ipc.log('Szólott a PHP: ', data);
         tempdata = data;
-        tempdata = JSON.stringify(tempdata);
+        tempdata = JSON.parse(tempdata);
+        global.tokens[tempdata.token] = tempdata.group;
+
+        console.log(global.tokens);
       }
     );
   }

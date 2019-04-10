@@ -1,7 +1,7 @@
 // jQuery kód futtatása, ha az oldal betöltött
 $(document).ready(function(){
     // új WebSocket csatlakozás
-    var ws = new WebSocket('ws://127.0.0.1/ws');
+    var ws = new WebSocket('ws://192.168.0.94/ws');
     console.log(ws);
     // ha üzenet érkezik WebSocketen keresztül
     ws.onmessage = function(message) {
@@ -9,12 +9,13 @@ $(document).ready(function(){
         $("#debug").append("<br/>" + message.data);
     };
 
-});
 
-
-/*
+    /*
 *
 * ideiglenes dolgok
 */
 
-console.log(token);
+$("#debug").append("<br/>" + token);
+});
+
+

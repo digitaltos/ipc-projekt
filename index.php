@@ -8,7 +8,7 @@
      *  majd egyszer
      * 
      ***************************************/
-
+    session_start();
      if ($_SESSION['token'] == NULL)
      {
          echo ("Neked nem szabadna itt lenned");
@@ -49,6 +49,7 @@
                 // IPC-n továbbküldendő adatok összeállítása
                 $tmpdata['token'] = sha1(strval(time()).$_POST['username'].strval(rand(0000000,9999999)));
                 $tmpdata['group'] = "admin";
+                $_SESSION['token'] = $tmpdata['token'];
 
                 $tmpjson['type'] = 'login';
                 $tmpjson['data'] = $tmpdata;

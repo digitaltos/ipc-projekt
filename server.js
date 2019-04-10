@@ -42,7 +42,7 @@ ipc.serve(
       function(data){
         ipc.log('Szólott a PHP: ', data);
         tempdata = data;
-        tempdata = JSON.parse(tempdata);
+      //  tempdata = JSON.parse(tempdata);
         global.tokens[tempdata.token] = tempdata.group;
 
         console.log(global.tokens);

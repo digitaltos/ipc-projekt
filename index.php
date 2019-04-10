@@ -59,7 +59,7 @@
     </head>
 
     <body style="background-color:black; color: white">
-    <h1>Projekt weboldal 1/2: bejelentkezés</h1>
+    <h1>Projekt weboldal 1/2: bejelentkezés shit works yo</h1>
     <br>
     <form method="post">
         <label>Név: </label><input type="text" name="username"><br>

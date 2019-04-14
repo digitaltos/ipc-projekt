@@ -13,24 +13,15 @@ const ipc = require('node-ipc');
  * WebSocket 
 ************************************************/
 
-function close_ws(ws){
-  for (const key in global.groups) {
-    if (ws === key) {
-      delete global.groups[key];
-      console.log(global.groups);
-      console.log(">>>>>>>>>>>>>terminálás");
-    }
-  }
-
-};
-
-
+// kliens autentikálása (a függvény a kliens WS handshake kezdésekor hívódik)
 function verifyClient(info, cb) {
+  // HTTP header-ben cookieként érkező token kezelése
   var tempcookie = info.req.headers['cookie'];
   tempcookie = tempcookie.split (";");
 
   var temptoken;
 
+  // a cookie tartalmát tömbbé parse-olja, temptoken tárolja majd a tokent
   tempcookie.forEach(function (curr, i) {
     curr = tempcookie[i].split ("=");
     curr[0] = curr[0].replace(/\s/g, '');
@@ -39,10 +30,12 @@ function verifyClient(info, cb) {
     }
   });
 
+  // ha nem volt token, visszautasítja a kapcsolatot
   if (temptoken == null)
   {
     console.log("Rossz bejelentkezés");
     cb(0);
+  // ha volt token, összehasonlítja az IPC-n keresztül kapottal 
   }else{
     for (const key in global.tokens) {
       if (temptoken === key) {
@@ -52,6 +45,7 @@ function verifyClient(info, cb) {
         break;
       }
     }
+    // ha nem volt IPC-n keresztül kapott token
     if (!good) {
       console.log("Rossz bejelentkezés");
       cb(0);
@@ -62,36 +56,39 @@ function verifyClient(info, cb) {
 // WebSocket szerver létrehozása
 const wss = new WebSocket.Server({port: 8080, verifyClient}); 
 
-var tempdata; 
 // WebSocket csatlakozás esetén
-
 wss.on('connection', function connection(ws, req){
+  // cookieből most a létrejött kapcsolathoz fűzi a groupot
   var tempcookie = req.headers['cookie'];
   tempcookie = tempcookie.split (";");
 
-  var temptoken;
+  var token;
+  var group;
+
 
   tempcookie.forEach(function (curr, i) {
     curr = tempcookie[i].split ("=");
     curr[0] = curr[0].replace(/\s/g, '');
     if (curr[0] == "token"){
-      temptoken = curr[1];
+      token = curr[1];
     }
   });
 
+  // beteszi a globális változóba a kliens WS kapcsolat objektumot
   for (const key in global.tokens) {
-    if (temptoken === key) {
+    if (token === key) {
       global.groups[ws] = global.tokens[key];
-      var good = 1;
+      group = global.tokens[key];
+      console.log(group);
       break;
     }
   }
 
+  // ha lezárul a kapcsolat, akkor kitörli a globális változóból
   ws.on('close', function (){
     for (const key in global.groups) {
       if (ws == key) {
         delete global.groups[key];
-        console.log(global.groups);
         console.log(">>>>>>>>>>>>>terminálás");
       }
     };

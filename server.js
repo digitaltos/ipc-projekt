@@ -35,10 +35,13 @@ function verifyClient(info, cb) {
       if (temptoken === key) {
         console.log("Jó bejelentkezés");
         cb(1);
-      }else{
-        console.log("Rossz bejelentkezés");
-        cb(0);
+        var good = 1;
+        break;
       }
+    }
+    if (!good) {
+      console.log("Rossz bejelentkezés");
+      cb(0);
     }
   }
 }
@@ -50,7 +53,7 @@ var tempdata;
 // WebSocket csatlakozás esetén
 
 wss.on('connection', function connection(ws){
-  //console.log("whack");
+  console.log("whack");
 });
 
 // mindenkinek szól

@@ -18,6 +18,7 @@ function verifyClient(info, cb) {
   tempcookie = tempcookie.split (";");
 
   var temptoken;
+
   tempcookie.forEach(function (curr, i) {
     curr = tempcookie[i].split ("=");
     curr[0] = curr[0].replace(/\s/g, '');
@@ -52,8 +53,29 @@ const wss = new WebSocket.Server({port: 8080, verifyClient});
 var tempdata; 
 // WebSocket csatlakozás esetén
 
-wss.on('connection', function connection(ws){
-  console.log("whack");
+wss.on('connection', function connection(ws, req){
+  var tempcookie = req.headers['cookie'];
+  tempcookie = tempcookie.split (";");
+
+  var temptoken;
+
+  tempcookie.forEach(function (curr, i) {
+    curr = tempcookie[i].split ("=");
+    curr[0] = curr[0].replace(/\s/g, '');
+    if (curr[0] == "token"){
+      temptoken = curr[1];
+    }
+  });
+
+  for (const key in global.tokens) {
+    if (temptoken === key) {
+      global.groups[ws] = global.tokens[key];
+      var good = 1;
+      break;
+    }
+  }
+
+  console.log(global.groups);
 });
 
 // mindenkinek szól

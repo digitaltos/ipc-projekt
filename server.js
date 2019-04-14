@@ -16,13 +16,21 @@ const ipc = require('node-ipc');
 function verifyClient(info, cb) {
   var tempcookie = info.req.headers['cookie'];
   tempcookie = tempcookie.split (";");
-  if (tempcookie[0].search("token") == -1)
+
+  var temptoken;
+  tempcookie.forEach(function (curr, i) {
+    curr = tempcookie[i].split ("=");
+    if (curr[0] == "token"){
+      temptoken = curr[1];
+    }
+  });
+
+  if (temptoken == null)
   {
     console.log("Rossz bejelentkezés");
     cb(0);
   }else{
     console.log("Jó bejelentkezés");
-    tempcookie[0].slice(6); 
     cb(1);
   }
 }

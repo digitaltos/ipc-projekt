@@ -1,8 +1,10 @@
 // jQuery kód futtatása, ha az oldal betöltött
 $(document).ready(function(){
     // új WebSocket csatlakozás
-    var ws = new WebSocket('ws://'. token . '@192.168.0.94/ws');
-    //console.log(ws);
+    var ws = new WebSocket('ws://'+ token + '@192.168.0.94/ws');
+
+
+    console.log('ws://'+ token + '@192.168.0.94/ws');
 
     $("#debug").append("<br/>" + "token tartalma:" + token);
 

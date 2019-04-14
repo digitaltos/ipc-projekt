@@ -31,6 +31,13 @@ function verifyClient(info, cb) {
     console.log("Rossz bejelentkezés");
     cb(0);
   }else{
+    for (const key in global.tokens) {
+      if (temptoken == global.tokens[key]) {
+        console.log("found a match");
+      }else{
+        console.log(">>>>>>> fuck");
+      }
+    }
     console.log("Jó bejelentkezés");
     console.log(temptoken);
     cb(1);
@@ -87,7 +94,6 @@ ipc.serve(
         ipc.log('Szólott a PHP: ', data);
         // adatok elmentése a globális változóba
         global.tokens[data.token] = data.group;
-
         console.log(global.tokens);
       }
     );

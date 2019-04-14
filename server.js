@@ -89,6 +89,17 @@ wss.on('connection', function connection(ws, req){
     }
   }
 
+  // ha admin, szól minden másik admin usernek hogy csatlakozás volt
+  if (group === "admin"){
+    var arrayLength = global.groups.admin.length;
+      for (var i = 0; i < arrayLength; i++){
+        if (ws =! global.groups.admin[i]) {
+          global.groups.admin[i].send("Valaki csatlakozott!");
+          console.log("küldés volt");
+        }
+      }
+  }
+
   // ha lezárul a kapcsolat, akkor kitörli a globális változóból
   ws.on('close', function (){
     if (group === "admin"){

@@ -11,4 +11,10 @@ $(document).ready(function(){
         // üzenet betöltése a HTML kódba
        
     };
+
+    $("#szamlalo").click(function(){
+        var number = $('#count').text();
+        $('#count').text(number + 1);
+    });
+
 });

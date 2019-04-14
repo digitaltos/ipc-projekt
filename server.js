@@ -19,6 +19,10 @@ const wss = new WebSocket.Server({port: 8080});
 var tempdata; 
 // WebSocket csatlakozás esetén
 
+wss.on('connection', function connection(ws){
+  console.log("whack");
+});
+
 // mindenkinek szól
 /*wss.on('connection', function connection(ws){
   wss.clients.forEach(function each(client) {

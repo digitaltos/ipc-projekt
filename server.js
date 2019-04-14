@@ -13,6 +13,11 @@ const ipc = require('node-ipc');
  * WebSocket 
 ************************************************/
 
+function noop() {}
+function heartbeat() {
+  this.isAlive = true;
+}
+
 function verifyClient(info, cb) {
   var tempcookie = info.req.headers['cookie'];
   tempcookie = tempcookie.split (";");
@@ -77,6 +82,24 @@ wss.on('connection', function connection(ws, req){
 
   console.log(global.groups);
 });
+
+const interval = setInterval(function ping() {
+  wss.clients.forEach(function each(ws) {
+    if (ws.isAlive === false) 
+    {
+      for (const key in global.groups) {
+        if (ws === key) {
+          delete global.groups[key];
+          console.log(global.groups);
+        }
+      }
+      console.log(">>>>>>>>>>>>>terminálás");
+      return ws.terminate();
+    }
+    ws.isAlive = false;
+    ws.ping(noop);
+  });
+}, 30000);
 
 // mindenkinek szól
 /*wss.on('connection', function connection(ws){

@@ -10,7 +10,7 @@
         $password = mysqli_real_escape_string($db, $_POST['password']);
 
         // lekérdezés
-        $sql = "SELECT id FROM users WHERE username = '$username' and password = '$password'";
+        $sql = "SELECT id AND group FROM users WHERE username = '$username' and password = '$password'";
         $result = mysqli_query($db, $sql);
         
         // ha nincs eredmény
@@ -21,7 +21,7 @@
         }else{
             // az eredmény tartalmát tömbbe
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-    
+            var_dump($row);
             // megszámoljuk a lekérdezés sorait, ha több mint 1 sor van akkor hiba történt
             $count = mysqli_num_rows($result);
             if($count == 1) 
@@ -54,7 +54,7 @@
                     fclose($socket);
 
                     // redirect
-                    header("location: admin.php");
+                   // header("location: admin.php");
                 }
             }else{
                 echo "Nincs ilyen felhasználó";

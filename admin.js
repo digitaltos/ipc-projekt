@@ -1,20 +1,20 @@
 // jQuery kód futtatása, ha az oldal betöltött
 $(document).ready(function(){
     // új WebSocket csatlakozás
-    var ws = new WebSocket('ws://192.168.0.94/ws');
-    console.log(ws);
+    var ws = new WebSocket('ws://'. token . '@192.168.0.94/ws');
+    //console.log(ws);
 
     $("#debug").append("<br/>" + "token tartalma:" + token);
 
     // ha üzenet érkezik WebSocketen keresztül
     ws.onmessage = function(message) {
-        // üzenet betöltése a HTML kódba
-       
+        if (message.data === "inc")
+        {
+            $('#count').html(parseInt($('#count').html(), 10)+1);
+        }
     };
 
     $("#szamlalo").click(function(){
-        var number = $('#count').text();
-        $('#count').text(number + 1);
+        ws.send("inc");
     });
-
 });

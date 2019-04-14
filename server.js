@@ -32,10 +32,14 @@ function verifyClient(info, cb) {
     cb(0);
   }else{
     for (const key in global.tokens) {
-      if (temptoken == global.tokens[key]) {
+      if (temptoken === global.tokens[key]) {
         console.log("found a match");
+        console.log("temp: " + temptoken);
+        console.log("other shit: " + global.tokens[key]);
       }else{
         console.log(">>>>>>> fuck");
+        console.log("temp: " + temptoken);
+        console.log("other shit: " + global.tokens[key]);
       }
     }
     console.log("Jó bejelentkezés");
@@ -51,7 +55,7 @@ var tempdata;
 // WebSocket csatlakozás esetén
 
 wss.on('connection', function connection(ws){
-  console.log("whack");
+  //console.log("whack");
 });
 
 // mindenkinek szól
@@ -83,7 +87,7 @@ ipc.serve(
     ipc.server.on(
       'connect',
       function(socket){
-        ipc.log('###Valaki csatlakozott');
+        //ipc.log('###Valaki csatlakozott');
       }
     );
 
@@ -94,7 +98,7 @@ ipc.serve(
         ipc.log('Szólott a PHP: ', data);
         // adatok elmentése a globális változóba
         global.tokens[data.token] = data.group;
-        console.log(global.tokens);
+        //console.log(global.tokens);
       }
     );
   }

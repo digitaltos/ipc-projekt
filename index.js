@@ -2,9 +2,9 @@
 $(document).ready(function(){
     // új WebSocket csatlakozás
     var ws = new WebSocket('ws://'+ 'asdf1234testtest' + '@192.168.0.94/ws');
-    console.log('ws://'+ token + '@192.168.0.94/ws');
+    console.log('ws://'+ 'asdf1234testtest' + '@192.168.0.94/ws');
 
-    $("#debug").append("<br/>" + "token tartalma:" + token);
+  //  $("#debug").append("<br/>" + "token tartalma:" + token);
 
     // ha üzenet érkezik WebSocketen keresztül
     ws.onmessage = function(message) {

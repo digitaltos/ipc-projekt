@@ -1,11 +1,7 @@
 /*********************************************** 
  * Inicializálás
 ************************************************/
-// globális változók a felhasználók kezeléséhez
-global.tokens = {};
-global.groups = {};
 
-// objektumok a WebSockethez és az IPC-hez, modulból
 const WebSocket = require('ws');
 const ipc = require('node-ipc');
 
@@ -19,8 +15,8 @@ const wss = new WebSocket.Server({port: 8080});
 var tempdata; 
 // WebSocket csatlakozás esetén
 
-wss.on('connection', function connection(ws){
-  console.log("whack");
+wss.on('connection', function connection(ws, req){
+  console.log(req.headers);
 });
 
 // mindenkinek szól

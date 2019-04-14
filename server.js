@@ -20,6 +20,7 @@ function verifyClient(info, cb) {
   var temptoken;
   tempcookie.forEach(function (curr, i) {
     curr = tempcookie[i].split ("=");
+    curr[0] = curr[0].replace(/\s/g, '');
     if (curr[0] == "token"){
       temptoken = curr[1];
     }
@@ -31,6 +32,7 @@ function verifyClient(info, cb) {
     cb(0);
   }else{
     console.log("Jó bejelentkezés");
+    console.log(temptoken);
     cb(1);
   }
 }

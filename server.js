@@ -13,8 +13,22 @@ const ipc = require('node-ipc');
  * WebSocket 
 ************************************************/
 
+function verifyClient(info, cb) {
+  var tempcookie = info.req.headers['cookie'];
+  tempcookie = tempcookie.split (";");
+  if (tempcookie[0].search("token") == -1)
+  {
+    console.log("Rossz bejelentkezés");
+    cb(0);
+  }else{
+    console.log("Jó bejelentkezés");
+    tempcookie[0].slice(6); 
+    cb(1);
+  }
+}
+
 // WebSocket szerver létrehozása
-const wss = new WebSocket.Server({port: 8080}); 
+const wss = new WebSocket.Server({port: 8080, verifyClient}); 
 
 var tempdata; 
 // WebSocket csatlakozás esetén

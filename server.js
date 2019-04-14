@@ -32,19 +32,14 @@ function verifyClient(info, cb) {
     cb(0);
   }else{
     for (const key in global.tokens) {
-      if (temptoken === global.tokens[key]) {
-        console.log("found a match");
-        console.log("temp: " + temptoken);
-        console.log("other shit: " + global.tokens[key]);
+      if (temptoken === key) {
+        console.log("Jó bejelentkezés");
+        cb(1);
       }else{
-        console.log(">>>>>>> fuck");
-        console.log("temp: " + temptoken);
-        console.log("other shit: " + global.tokens[key]);
+        console.log("Rossz bejelentkezés");
+        cb(0);
       }
     }
-    console.log("Jó bejelentkezés");
-    console.log(temptoken);
-    cb(1);
   }
 }
 
@@ -95,7 +90,7 @@ ipc.serve(
     ipc.server.on(
       'login',
       function(data){
-        ipc.log('Szólott a PHP: ', data);
+        //ipc.log('Szólott a PHP: ', data);
         // adatok elmentése a globális változóba
         global.tokens[data.token] = data.group;
         //console.log(global.tokens);

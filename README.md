@@ -2,6 +2,22 @@
 2019/01 projekt 2 tantárgy
 
 ============
+2019-04-14 
+============
+
+Sikerült:
+- DB belőve
+- IPC-n keresztül a node megkapja a groupot
+
+- Node kap tokent a klienstől HTTP-n keresztül
+
+Hátravan:
+- PHP-ből token global objektumba
+- Klienstől token összenéz vele 
+- kapcsolat elfogad (on: connect-nél lehet majd csak client objektről beeszélni szerintem, úgyhogy ott kell majd varázsolni, talán mégegy global object? 
+- ha passzol, group alapján helyes groups objektbe rakni a wsclients objectet
+
+============
 2019-04-10 
 ============
 

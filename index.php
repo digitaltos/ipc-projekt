@@ -10,9 +10,11 @@
         $password = mysqli_real_escape_string($db, $_POST['password']);
 
         // lekérdezés
-        $sql = "SELECT id AND group FROM users WHERE username = '$username' and password = '$password'";
+        $sql = "SELECT id, `group` 
+                FROM users 
+                WHERE username = '$username' and password = '$password'";
         $result = mysqli_query($db, $sql);
-        
+
         // ha nincs eredmény
         if ($result == NULL)
         {
@@ -21,13 +23,15 @@
         }else{
             // az eredmény tartalmát tömbbe
             $row = mysqli_fetch_array($result,MYSQLI_ASSOC);
-            var_dump($row);
+
             // megszámoljuk a lekérdezés sorait, ha több mint 1 sor van akkor hiba történt
             $count = mysqli_num_rows($result);
             if($count == 1) 
             {
                 // cookie létrehozása
                 session_start();
+
+                var_dump($row);
 
                 // IPC-n továbbküldendő adatok összeállítása
                 $tmpdata['token'] = sha1(strval(time()).$_POST['username'].strval(rand(0000000,9999999)));
@@ -48,7 +52,7 @@
                     // az adatok JSON formátumban való továbbküldése
                     echo fwrite($socket, json_encode($tmpjson)."\f");
                     
-                    var_dump (json_encode($tmpjson)."\f");
+                    //var_dump (json_encode($tmpjson)."\f");
 
                     // socket lezárása
                     fclose($socket);

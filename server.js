@@ -3,7 +3,9 @@
 ************************************************/
 // globális változók a felhasználók kezeléséhez
 global.tokens = {};
-global.groups = {};
+var admin = [];
+var normal = [];
+global.groups = {admin, normal};
 
 // objektumok a WebSockethez és az IPC-hez, modulból
 const WebSocket = require('ws');
@@ -65,7 +67,6 @@ wss.on('connection', function connection(ws, req){
   var token;
   var group;
 
-
   tempcookie.forEach(function (curr, i) {
     curr = tempcookie[i].split ("=");
     curr[0] = curr[0].replace(/\s/g, '');
@@ -77,8 +78,12 @@ wss.on('connection', function connection(ws, req){
   // beteszi a globális változóba a kliens WS kapcsolat objektumot
   for (const key in global.tokens) {
     if (token === key) {
-      global.groups[ws] = global.tokens[key];
       group = global.tokens[key];
+      if (group === "admin"){
+        global.groups.admin.push(ws);
+      }else{
+        global.groups.normal.push(ws);
+      }
       console.log(group);
       break;
     }
@@ -86,12 +91,23 @@ wss.on('connection', function connection(ws, req){
 
   // ha lezárul a kapcsolat, akkor kitörli a globális változóból
   ws.on('close', function (){
-    for (const key in global.groups) {
-      if (ws == key) {
-        delete global.groups[key];
-        console.log(">>>>>>>>>>>>>terminálás");
+    if (group === "admin"){
+      var arrayLength = global.groups.admin.length;
+      for (var i = 0; i < arrayLength; i++){
+        if (ws == global.groups.admin[i]) {
+          delete global.groups.admin[i];
+          break;
+        }
       }
-    };
+      }else{
+      var arrayLength = global.groups.normal.length;
+      for (var i = 0; i < arrayLength; i++){
+        if (ws == global.groups.normal[i]) {
+          delete global.groups.normal[i];
+          break;
+        }
+      }
+    } 
   });
 });
 

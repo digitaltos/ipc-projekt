@@ -93,13 +93,13 @@ wss.on('connection', function connection(ws, req){
   if (group === "admin"){
     var arrayLength = global.groups.admin.length;
       for (var i = 0; i < arrayLength; i++){
-        if (ws =! global.groups.admin[i]) {
+        if (global.groups.admin[i] != null && ws != global.groups.admin[i] && global.groups.admin[i].readyState === WebSocket.OPEN) {
           global.groups.admin[i].send("Valaki csatlakozott!");
           console.log("küldés volt");
         }
       }
-  }
-
+  };
+  
   // ha lezárul a kapcsolat, akkor kitörli a globális változóból
   ws.on('close', function (){
     if (group === "admin"){
@@ -120,19 +120,8 @@ wss.on('connection', function connection(ws, req){
       }
     } 
   });
+
 });
-
-// mindenkinek szól
-/*wss.on('connection', function connection(ws){
-  wss.clients.forEach(function each(client) {
-    if (client !== ws && client.readyState === WebSocket.OPEN) {
-      client.send("valaki csatlakozott");
-      console.log(client);
-    }
-  });
-});*/
-
-
 
 /*********************************************** 
  * IPC

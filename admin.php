@@ -1,6 +1,5 @@
 <?php
 session_start();
-var_dump (json_encode($_SESSION));
 
 if ($_SESSION['token'] == NULL)
 {
@@ -25,11 +24,7 @@ if ($_SESSION['token'] == NULL)
     <body style="background-color:black; color: white">
     <h1 style="color:yellow">Projekt weboldal 2/2: admin felület</h1>
     <br>
-    <button id="szamlalo">Számláló</button>
-    <br>
-    <h3>Számlált érték: <span id="count">0</span>
     <HR/>
-        <H2>DEBUG</H2>
         <section id="debug">
     </body>
 </html>

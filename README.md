@@ -2,6 +2,12 @@
 2019/01 projekt 2 tantárgy
 
 ============
+2019-04-15 
+============
+
+Megyen minden ahogy kell, hülye esetek lekezelve, satöbbi satöbbi. 
+
+============
 2019-04-14 
 ============
 

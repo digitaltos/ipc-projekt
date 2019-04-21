@@ -3,7 +3,7 @@ session_start();
 
 if ($_SESSION['token'] == NULL)
 {
-    echo ("Neked nem szabadna itt lenned");
+    echo ("Nem bejelentkezett felhasználó");
 }else{
    echo '<script type ="text/javascript">
    var token = "' . $_SESSION["token"] . '" 

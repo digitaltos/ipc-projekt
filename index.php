@@ -31,8 +31,6 @@
                 // cookie létrehozása
                 session_start();
 
-                var_dump($row);
-
                 // IPC-n továbbküldendő adatok összeállítása
                 $tmpdata['token'] = sha1(strval(time()).$_POST['username'].strval(rand(0000000,9999999)));
                 $tmpdata['group'] = $row['group'];
@@ -51,8 +49,6 @@
                 } else {
                     // az adatok JSON formátumban való továbbküldése
                     echo fwrite($socket, json_encode($tmpjson)."\f");
-                    
-                    //var_dump (json_encode($tmpjson)."\f");
 
                     // socket lezárása
                     fclose($socket);

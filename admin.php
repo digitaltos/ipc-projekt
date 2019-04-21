@@ -21,8 +21,8 @@ if ($_SESSION['token'] == NULL)
         <script src="./admin.js"></script>
     </head>
 
-    <body style="background-color:black; color: white">
-    <h1 style="color:yellow">Projekt weboldal 2/2: admin felület</h1>
+    <body>
+    <h1>Projekt weboldal 2/2: admin felület</h1>
     <br>
     <HR/>
         <section id="debug">

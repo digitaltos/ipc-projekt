@@ -1,6 +1,6 @@
 // jQuery kód futtatása, ha az oldal betöltött
 $(document).ready(function(){
-    // token küldés cookie-n keresztül
+    // token küldése a kliensnek cookie-n keresztül
     document.cookie = 'token =' + token + '; path=/' 
     // új WebSocket csatlakozás
     var ws = new WebSocket('ws://192.168.0.94/ws');

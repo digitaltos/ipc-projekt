@@ -41,7 +41,6 @@ function verifyClient(info, cb) {
   }else{
     for (const key in global.tokens) {
       if (temptoken === key) {
-        console.log("Jó bejelentkezés");
         cb(1);
         var good = 1;
         break;
@@ -84,7 +83,6 @@ wss.on('connection', function connection(ws, req){
       }else{
         global.groups.normal.push(ws);
       }
-      console.log(group);
       break;
     }
   }
@@ -95,7 +93,6 @@ wss.on('connection', function connection(ws, req){
       for (var i = 0; i < arrayLength; i++){
         if (global.groups.admin[i] != null && ws != global.groups.admin[i] && global.groups.admin[i].readyState === WebSocket.OPEN) {
           global.groups.admin[i].send("Valaki csatlakozott!");
-          console.log("küldés volt");
         }
       }
   };
@@ -133,25 +130,15 @@ ipc.config.socketRoot = "/var/www/html/";
 ipc.config.appspace = "ipc.";
 ipc.config.retry = 1000;
 
-// Unix socket szerver eventlistenerjei
+// Unix socket szerver eventlistenerje
 ipc.serve(
   function(){
-    // csatlakozás esetén
-    ipc.server.on(
-      'connect',
-      function(socket){
-        //ipc.log('###Valaki csatlakozott');
-      }
-    );
-
     // ha üzenet érkezik a PHP-től
     ipc.server.on(
       'login',
       function(data){
-        //ipc.log('Szólott a PHP: ', data);
         // adatok elmentése a globális változóba
         global.tokens[data.token] = data.group;
-        //console.log(global.tokens);
       }
     );
   }

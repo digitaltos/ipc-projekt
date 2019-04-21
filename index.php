@@ -74,7 +74,7 @@
         <title>Projekt oldal 1/2</title>
     </head>
 
-    <body style="background-color:black; color: white">
+    <body>
     <h1>Projekt weboldal 1/2: bejelentkezés</h1>
     <br>
     <form method="post">
